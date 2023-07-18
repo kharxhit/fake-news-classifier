@@ -1,0 +1,31 @@
+import pandas as pd
+import numpy as np
+import random
+
+# Set the random seed for reproducibility
+random.seed(42)
+
+# Define the number of samples
+num_samples = 1000
+
+# Define the labels (real or fake)
+labels = ['real', 'fake']
+
+# Generate random news articles
+def generate_random_news():
+    news_articles = []
+    for _ in range(num_samples):
+        num_sentences = random.randint(3, 10)
+        news_article = ' '.join(['This is sentence number ' + str(i) + '.' for i in range(1, num_sentences + 1)])
+        news_articles.append(news_article)
+    return news_articles
+
+# Generate random dataset
+data = pd.DataFrame(columns=['text', 'label'])
+data['text'] = generate_random_news()
+data['label'] = np.random.choice(labels, size=num_samples)
+
+# Save the dataset to a CSV file
+data.to_csv('random_dataset.csv', index=False)
+
+print("Random dataset created and saved as 'random_dataset.csv'.")
